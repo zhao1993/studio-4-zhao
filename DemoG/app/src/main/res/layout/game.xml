@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+	android:id="@+id/gameRelativeLayout">
+
+	<game.graphic.GameView
+		android:id="@+id/gm_view"
+		android:layout_height="800dp"
+		android:layout_width="480dp"
+		android:layout_centerHorizontal="true"/>
+
+	<Button
+        android:text="↓"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true"
+		android:id="@+id/gm_down"
+		style="@style/views"/>
+
+	<Button
+
+		android:text="⭕"
+		android:layout_above="@id/gm_down"
+		android:layout_centerHorizontal="true"
+		android:id="@+id/gm_ok"
+		style="@style/views"/>
+
+	<Button
+
+		android:text="↑"
+		android:layout_above="@id/gm_ok"
+		android:layout_centerHorizontal="true"
+		android:id="@+id/gm_up"
+		style="@style/views"/>
+
+	<Button
+
+		android:text="←"
+		android:layout_above="@id/gm_down"
+		android:layout_toLeftOf="@id/gm_ok"
+		android:id="@+id/gm_left"
+		style="@style/views"/>
+
+	<Button
+
+		android:text="→"
+		android:layout_above="@id/gm_down"
+		android:layout_toRightOf="@id/gm_ok"
+		android:id="@+id/gm_right"
+		style="@style/views"/>
+
+	<Button
+
+		android:text="△"
+		android:layout_above="@id/gm_right"
+		android:id="@+id/gm_cancle"
+		android:layout_toRightOf="@id/gm_up"
+		style="@style/views"/>
+
+	<Button
+
+		android:text="◎"
+		android:layout_above="@id/gm_left"
+		android:layout_toLeftOf="@id/gm_up"
+		android:id="@+id/gm_menu"
+		style="@style/views"/>
+
+</RelativeLayout>
+
