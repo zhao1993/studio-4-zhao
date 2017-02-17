@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import java.util.Set;
 import android.graphics.Rect;
 import game.graphic.Paint;
+import game.util.Log4Game;
 /*关于碰撞检测的处理类*/
 public class Delection
 {
@@ -29,7 +30,7 @@ public class Delection
             return false;
         if (sprite.dir() == Direction.RIGHT && spriteX + width * 2 > GameView.width())
             return false;
-        return true == MapScence.canMove(sprite);
+        return MapScence.canMove(sprite);
     }
     /*记录精灵的碰撞*/
     /*会将精灵的下一个目标点(可以的精灵)作为碰撞点
@@ -41,54 +42,51 @@ public class Delection
     }
     public static boolean nextStepiSprite(Sprite sprite)
     {
-        boolean flag = true;
         int id = sprite.getId();
         Delection.Position dp = getPosition(sprite);
-        a:
         for (Map.Entry<Integer,Delection.Position> entry:dePoints.entrySet())
         {
             if (entry.getKey() != id)
             {
                 if (entry.getValue().x == dp.x && entry.getValue().y == dp.y)
                 {
-                    flag = false;
-                    break a;
+                    return true;
                 }
             }
         }
-        return flag;
+        return false;
     }
+    //得到精灵现在的坐标(实际获取下一点的坐标)
     private static Delection.Position getPosition(Sprite sprite)
     {
         int x = sprite.x() / sprite.WIDTH;
         int y = sprite.y() / sprite.HEIGHT;
-        Delection.Position p = new Delection.Position();
 
-        /*见sprite*/
-        if (sprite.isFixed())
-        {
-            p.x = x;
-            p.y = y;
-        }
         if (sprite.isMove() && !sprite.isFixed())
         {
             switch (sprite.dir())
             {
-                case UP:p.y = y - 1;break;
-                case DOWN:p.y = y + 1;break;
-                case LEFT:p.x = x - 1;break;
-                case RIGHT:p.x = x + 1;break;
+                case UP:y = y - 1;break;
+                case DOWN:y = y + 1;break;
+                case LEFT:x = x - 1;break;
+                case RIGHT:x = x + 1;break;
             }
         }
-        return p;
+        Log4Game.add(Log4Game.Mode.ERROR, "精灵ID" + sprite.getId() + "下一点坐标" + x + ":" + y);
+        return new Delection.Position(x, y);
     }
     public static boolean canMove(Sprite sprite)
     {
         return Delection.canMoveOfScreenAndMap(sprite) 
-            && !Delection.nextStepiSprite(sprite);
+         && !Delection.nextStepiSprite(sprite);
     }
     public static class Position
     {
+        public Position(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
         public int x;
         public int y;
     }
@@ -98,7 +96,7 @@ public class Delection
         for (Map.Entry<Integer,Delection.Position> entry:dePoints.entrySet())
         {
             Delection.Position dp =  entry.getValue();
-            canva.drawRect(new Rect(dp.x, dp.y, dp.x + Sprite.WIDTH, dp.y + Sprite.HEIGHT), Paint.paint());
+            canva.drawRect(new Rect(dp.x*Sprite.WIDTH, dp.y*Sprite.HEIGHT, dp.x*Sprite.WIDTH + Sprite.WIDTH, dp.y*Sprite.HEIGHT + Sprite.HEIGHT), Paint.paint());
         }
     }
 }

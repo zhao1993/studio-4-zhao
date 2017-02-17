@@ -159,6 +159,7 @@ public  class Sprite
             if (isBlock)
             {
                 Delection.record4Sprite(this);
+                
             }
         }
 

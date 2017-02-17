@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class Log4Game
 {
-    public static Mode write= Mode.ERROR;
+    public static Mode write= Mode.INFO;
     public static void add(Mode mode, Object... obj)
     {
         if (mode.value() < write.value())
@@ -19,13 +19,13 @@ public class Log4Game
         for (Object ob:obj)
         {
             err.append(ob.toString());
-            err.append("||");
+            err.append("--");
         }
-        err.append("--\n\r");
+        err.append("\n\r");
         save(err.toString());
 
     }
-    public static void save(String err)
+    private static void save(String err)
     {
         File file = new File("/storage/emulated/0/err.txt");
         if (!file.exists())
@@ -58,7 +58,7 @@ public class Log4Game
         catch (FileNotFoundException e)
         {}
     }
-   public enum Mode
+    public enum Mode
     {
         ERROR(1),WARN(0),INFO(-1);
         private int value = 0;

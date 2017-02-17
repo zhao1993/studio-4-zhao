@@ -83,7 +83,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Run
         init();
         player = SpriteFactory.getPlayer(6, "people008");
         player.setSpeed(4);
-        SpriteFactory.debugCreateSprite(10);
+        SpriteFactory.debugCreateSprite(1);
         
         /*逻辑线程*/
         new LogicThread().start();
